@@ -2,8 +2,8 @@ import requests
 import time  
 
 # URL de la página que quieres mantener activa  
-url = "https://dashboard.render.com/web/srv-crsmhobtq21c73dh0afg"  # Cambia esta URL por la de tu instancia  
-url2 = "https://dashboard.render.com/web/srv-cs5d42t6l47c73f3lnf0/deploys/dep-cs5d5kl6l47c73f3m5bg"
+url = "https://mantener-servidores.onrender.com"  # Cambia esta URL por la de tu instancia  
+url2 = "https://bot-cl.onrender.com"
 
 # Intervalo de tiempo entre peticiones en segundos  
 intervalo = 10  # Puedes ajustar este valor según sea necesario  
