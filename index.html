@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claud_Genesis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;600&display=swap');
+        
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgba(20,20,20,0.7);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 0 10px rgba(255,255,255,0.1),
+                0 0 20px rgba(255,255,255,0.05),
+                0 0 30px rgba(255,182,204,0.1);
+            animation: borderPulse 4s infinite alternate;
+        }
+
+        .main-text {
+            font-weight: 600;
+            color: #FFB6C1;  /* Pastel Pink */
+            font-size: 2.5rem;
+            line-height: 1.4;
+            margin-bottom: 0;
+            animation: textFadeIn 1.5s ease-out, textShadow 3s infinite alternate;
+            text-shadow: 0 0 10px rgba(255,182,204,0.5);
+        }
+
+        .service-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(50,205,50,0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .service-status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #32CD32;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: blinkDot 1.5s infinite alternate;
+        }
+
+        .credits {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 6px;
+            color: rgba(255,255,255,0.1);
+            text-align: center;
+            opacity: 0.2;
+            transition: opacity 0.3s ease;
+        }
+
+        .credits:hover {
+            opacity: 0.5;
+        }
+
+        @keyframes textFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textShadow {
+            from {
+                text-shadow: 0 0 10px rgba(255,182,204,0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255,182,204,0.7);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes blinkDot {
+            from {
+                opacity: 0.5;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes borderPulse {
+            0% {
+                border-color: rgba(255,255,255,0.2);
+                box-shadow: 
+                    0 0 10px rgba(255,255,255,0.1),
+                    0 0 20px rgba(255,255,255,0.05),
+                    0 0 30px rgba(255,182,204,0.1);
+            }
+            100% {
+                border-color: rgba(255,255,255,0.4);
+                box-shadow: 
+                    0 0 15px rgba(255,255,255,0.2),
+                    0 0 25px rgba(255,255,255,0.1),
+                    0 0 40px rgba(255,182,204,0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-text">Claud_Genesis</h1>
+        <div class="service-status">
+            <div class="service-status-dot"></div>
+            <span>Servicio Activo - Sistema Operativo</span>
+        </div>
+        <div class="credits">
+            Hecho con Claude 3.5 | Por Charles Rodríguez Rojas para María Claudia Soto Fonzeca
+        </div>
+    </div>
+</body>
+</html>
