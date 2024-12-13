@@ -51,6 +51,7 @@ if __name__ == "__main__":
 
   @bot.message_handler(func=lambda message: True)  
   def echo_all(message):
+      bot.send_chat_action(message.chat.id, 'typing')
       bot.reply_to(message, send(message.text))  
 
   # Inicia el bot  
