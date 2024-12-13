@@ -27,3 +27,4 @@ tqdm==4.66.5
 typing_extensions==4.12.2
 uritemplate==4.1.1
 urllib3==2.2.3
+assemblyai==0.35.1
