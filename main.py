@@ -38,7 +38,7 @@ mostt = genai.GenerativeModel(
 )
 
 history = [
-    {"role": "system", "content": "Tu dever es convertir el audio que se te proporcione en texto, solo deves de responder con el texto mas nada"}
+    {"role": "user", "content": "Tu dever es convertir el audio que se te proporcione en texto, solo deves de responder con el texto mas nada"}
 ]
 chat_sessionstt = mostt.start_chat(history=history)
 
