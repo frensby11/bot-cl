@@ -3,9 +3,6 @@ import telebot
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-# AssemblyAI Integration (replace with your API key)
-import assemblyai as aai
-aai.settings.api_key = "2eb0dda5e55245efb01f56354a47de58"
 
 # Configuración de Google AI
 genai.configure(api_key="AIzaSyAheriSf5COPnerrWrxeL5TaXAqqaNiEZ0")
@@ -41,9 +38,13 @@ def send(text):
   x = chat_session.send_message(text)
   return x.text
 
-@bot.message_handler(commands=['/start'])
-def send_welcome(message):
-  bot.reply_to(message, "¡Hola! Puedo responder a mensajes de texto y voz.")
+@bot.message_handler(commands=['status'])
+def send_url(message):
+  inline = InlineKeyboardMarkup()
+  button = InlineKeyboardButton("Play", url='https://zucchini-communication-production.up.railway.app')
+  inline.add(button)
+  bot.reply_to(message, 'Haz click en "Play" para ver el estado del modelo', reply_markup=inline)
+
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
@@ -53,25 +54,31 @@ def handle_text(message):
 @bot.message_handler(content_types=['voice'])
 def handle_voice(message):
   try:
-    # Download audio file
+    # Descargar archivo de audio
     file_info = bot.get_file(message.voice.file_id)
     downloaded_file = bot.download_file(file_info.file_path)
 
-    # Save audio temporarily
+    # Guardar audio temporalmente
     with open('audio_temp.ogg', 'wb') as new_file:
       new_file.write(downloaded_file)
 
-    # Transcribe audio with AssemblyAI
-    config = aai.TranscriptionConfig(speech_model=aai.SpeechModel.best, language_code='es')
-    transcriber = aai.Transcriber(config=config)
-    transcript = transcriber.transcribe(open('audio_temp.ogg', 'rb'))
+    # Preparar el archivo de audio para Gemini
+    with open('audio_temp.ogg', 'rb') as audio_file:
+      audio_bytes = audio_file.read()
 
-    # Send transcribed text to the AI
+    # Enviar audio a Gemini para transcripción
+    prompt = "Transcribe el siguiente audio. Si es en español, transfórmalo a texto"
+    audio_part = {
+        'mime_type': 'audio/ogg',
+        'data': audio_bytes
+    }
+
     bot.send_chat_action(message.chat.id, 'typing')
-    response = send(transcript.text)
+    response = model.generate_content([prompt, audio_part])
 
-    # Respond with transcription and AI response
-    bot.reply_to(message, response)
+    # Responder con la transcripción dependiendo del tts
+    
+    bot.reply_to(message, send(response.text))
 
   except Exception as e:
     bot.reply_to(message, f"Error al procesar el audio: {str(e)}")
