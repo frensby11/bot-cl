@@ -26,6 +26,22 @@ model = genai.GenerativeModel(
   }
 )
 
+mostt = genai.GenerativeModel(
+  model_name="gemini-1.5-pro-latest",
+  generation_config=generation_config,
+  safety_settings={
+    HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.HARM_BLOCK_THRESHOLD_UNSPECIFIED,
+    HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+    HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+  }
+)
+
+history = [
+    {"role": "system", "content": "Tu dever es convertir el audio que se te proporcione en texto, solo deves de responder con el texto mas nada"}
+]
+chat_sessionstt = mostt.start_chat(history=history)
+
 chat_session = model.start_chat(history=[])
 
 print('Iniciado')
@@ -37,6 +53,7 @@ bot = telebot.TeleBot(Key)
 def send(text):
   x = chat_session.send_message(text)
   return x.text
+
 
 @bot.message_handler(commands=['status'])
 def send_url(message):
@@ -74,7 +91,7 @@ def handle_voice(message):
     }
 
     bot.send_chat_action(message.chat.id, 'typing')
-    response = model.generate_content([prompt, audio_part])
+    response = mostt.generate_content([prompt, audio_part])
 
     # Responder con la transcripción dependiendo del tts
     
