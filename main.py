@@ -29,6 +29,7 @@ model = genai.GenerativeModel(
 mostt = genai.GenerativeModel(
   model_name="gemini-1.5-pro-latest",
   generation_config=generation_config,
+  system_instruction="Eres un modelo que deve repetir todo lo que se le diga tanto en audio como en texto, no deves agregar contenido adicional a lo que transcribas",
   safety_settings={
     HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.HARM_BLOCK_THRESHOLD_UNSPECIFIED,
     HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
@@ -37,12 +38,8 @@ mostt = genai.GenerativeModel(
   }
 )
 
-history = [
-    {"role": "user", "content": "Tu dever es convertir el audio que se te proporcione en texto, solo deves de responder con el texto mas nada"}
-]
-chat_sessionstt = mostt.start_chat(history=history)
-
 chat_session = model.start_chat(history=[])
+chat_sessionstt = mostt.start_chat(history=[])
 
 print('Iniciado')
 
